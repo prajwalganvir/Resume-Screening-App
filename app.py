@@ -1,6 +1,6 @@
 import numpy
 import nltk
-import re
+import regex
 from sklearn.feature_extraction.text import TfidfTransformer
 
 nltk.download('punkt')
@@ -14,20 +14,20 @@ import pickle
 
 #loading models
 
-clf = pickle.load(open('pickle/clf.pkl ','rb'))
-tfidf = pickle.load(open('pickle/tfidf.pkl','rb'))
+clf = pickle.load(open('clf.pkl','rb'))
+tfidf = pickle.load(open('tfidf.pkl','rb'))
 
 # web app
 
 def Clean_Resume(txt):
     # Use a regex pattern to match URLs (with or without trailing whitespace)
-    cleanTxt = re.sub(r'http\S+', '', txt)
-    cleanTxt = re.sub(r'RT|CC', '', cleanTxt)
-    cleanTxt = re.sub(r'@\S+', '', cleanTxt) # --> @
-    cleanTxt = re.sub(r'#\S+', '', cleanTxt) #--> hastags
-    cleanTxt = re.sub(r'[%s]'% re.escape("""!"#$%^&'()*+,-./:;<=>?@[\]^_`{|}~"""), '', cleanTxt) #-- > special char
-    cleanTxt = re.sub(r'[^\x00-\x7f]', '', cleanTxt) # -- > 
-    cleanTxt = re.sub(r'\s+', ' ', cleanTxt) # --> \n ,\t
+    cleanTxt = regex.sub(r'http\S+', '', txt)
+    cleanTxt = regex.sub(r'RT|CC', '', cleanTxt)
+    cleanTxt = regex.sub(r'@\S+', '', cleanTxt) # --> @
+    cleanTxt = regex.sub(r'#\S+', '', cleanTxt) #--> hastags
+    cleanTxt = regex.sub(r'[%s]'% regex.escape("""!"#$%^&'()*+,-./:;<=>?@[\]^_`{|}~"""), '', cleanTxt) #-- > special char
+    cleanTxt = regex.sub(r'[^\x00-\x7f]', '', cleanTxt) # -- > 
+    cleanTxt = regex.sub(r'\s+', ' ', cleanTxt) # --> \n ,\t
 
     return cleanTxt
 
